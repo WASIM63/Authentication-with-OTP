@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" href="../icons/css1/all.min.css">
+</head>
+<body>
+    <div id="outerBox">
+        <div id="left"></div>
+        <div id="right">
+            <h2 id="welcome">Welcome Back!</h2>
+            <form action="/logIn/" method="post">
+                <div class="iconDiv">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="E-mail Address" id="email" name="email">
+                </div>
+                <div class="iconDiv">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Password" id="setPassword" name="password">
+                    <i class="fa-solid fa-eye-slash" id="stEye" onclick="myFunction('setPassword','stEye')"></i>
+                </div>
+                <div class="iconDiv">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="number" placeholder="Enter Captcha" name="captcha">
+                    <div id="captchaBox"></div>
+                </div>
+                <div style="display:flex;justify-content: space-between;margin-top:10px;">
+                    <p><input type="checkbox" id="rememberMe" style="height:15px;width:15px;margin: 5px;" name="rememberMe">Remember Me</p>
+                </div>
+                <div style="display:flex;justify-content: space-around;margin-top:30px;">
+                    <button id="createAccount"><a href="./forgotPassword.html">Forgot Password?</a></button>
+                    <button id="signIn" type="submit">Sign In</button>
+                </div>
+                <p style="margin-top: 50px;">Dont't have an Account? <a href="./signUp.html">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>
