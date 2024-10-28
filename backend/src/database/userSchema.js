@@ -19,19 +19,30 @@ const signUpSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    mobileNumber:{
+    mobile:{
         type:Number,
         required:true,
-        unique:true
     },
     email:{
         type:String,
         required:true,
         unique:true
     },
+    otp:{
+        type:Number,
+        required:true,
+    },
+    time:{
+        type:Date,
+        require:true
+    },
     password:{
         type:String,
         required:true,
+    },
+    confirmPassword:{
+        type:String,
+        required:true
     },
     rememberMe:{
         type:String

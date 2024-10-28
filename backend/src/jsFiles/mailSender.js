@@ -17,7 +17,7 @@ async function sendMail(emailId){
             from: "wamallick01@gmail.com",
             to:emailId,
             subject:"One Time Password",
-            text:`Your OTP is ${otp}`
+            text:`Your OTP is ${otp}. It will be expired in 10 minutes.`
         };
         await transporter.sendMail(mailConfigurations,(err, info) => {
             if (err) console.log(err);

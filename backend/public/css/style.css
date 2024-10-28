@@ -5,7 +5,7 @@
 }
 
 #box{/* For create account html page */
-    height:90vh;
+    height:600px;
     width:30vw;
     border:1px solid gray;
     margin:auto;
@@ -26,6 +26,12 @@
 .placeholder-red::placeholder {
     color: red;
   }
+.redBorder{
+    border-color: red;
+}
+.greenBorder{
+    border-color: green;
+}
 
 i{
     margin-right: 5px;
@@ -73,10 +79,13 @@ input:focus{
     background-color:rgb(239, 239, 239);
 }
 #captchaBox{
-    height: 50px;
-    width:300px;
+    height: 40px;
+    width:120px;
     background-color: rgb(232, 232, 232);
     margin-left: 20px;
+    box-sizing: content-box;
+    /* border: 1px solid gray; */
+    box-shadow:0px 0px 2px 2px rgb(227, 225, 225);
 }
 button,.btn{
     height:30px;

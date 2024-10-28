@@ -11,7 +11,7 @@
 <body>
     <div id="box">
         <h2>Create New Account</h2>
-        <form action="/signUp" method="post">
+        <form action=''>
             <div class="iconDiv" onclick="reset()">
                 <i class="fas fa-user"></i>
                 <input type="text" placeholder="Name" id="name" name="name" class="wrongPass">
@@ -38,12 +38,12 @@
             <div class="iconDiv" onclick="reset()">
                 <i class="fa-solid fa-envelope"></i>
                 <input type="email" value="" placeholder="E-mail Address" id="email" name="email">
-                <div class="btn" id="getOtp" name="otpBtn" onclick="clicked('email',getOtp)">Get OTP</div>
+                <div class="btn" id="getOtp" name="otpBtn" onclick="getOtp()">Get OTP</div>
             </div>
             <div class="iconDiv" onclick="reset()">
                 <i class="fa-solid fa-key"></i>
                 <input type="number" placeholder="OTP" name="otp" value="" id="otp">
-                <div class="btn" id='otpVerify' onclick="clicked('otp',verify)">Verify</div>
+                <div class="btn" id='otpVerify' onclick="varifyOtp()">Verify</div>
             </div>             
             <div class="iconDiv" onclick="reset()">
                 <i class="fa-solid fa-lock"></i>
@@ -55,14 +55,14 @@
                 <input type="password" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword">
                 <i class="fa-solid fa-eye-slash" id="ndEye" onclick="myFunction('confirmPassword','ndEye')"></i>
             </div>
-            <div ><div class="btn" style="margin-top: 10px;" onclick="submit()">Create Account</div></div>
+            <div class="btn" style="margin-top: 10px;" onclick="submit()">Create Account</div>
         </form>
         <div style="margin-top: 50px;">
-            <p>Already Registered? <a href="./index.html">Sign In</a></p>
+            <p>Already Registered? <a href="/">Sign In</a></p>
             <a href="#">Terms and Conditions</a>
         </div>
     </div>
-    <!-- <script src="/script.js"></script> -->
-    <script src="/backend/src/scriptFiles/signUp.js"></script>
+    <script src="/signUp.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>
