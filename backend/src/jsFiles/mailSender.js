@@ -1,12 +1,14 @@
+require('dotenv').config();
+
 const otpGenerator=require("otp-generator");
 
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service:process.env.MAIL_SERVICE,
     secure: false,
     auth: {
-        user: "wamallick01@gmail.com",
-        pass: "qgvf gkuk zmcq sqbp"
+        user: process.env.EMAIL_ID,
+        pass: process.env.EMAIL_PASS
     }
 });
 
@@ -14,7 +16,7 @@ async function sendMail(emailId){
     try{
         let otp=otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets:false});
         const mailConfigurations = {
-            from: "wamallick01@gmail.com",
+            from: process.env.EMAIL_ID,
             to:emailId,
             subject:"One Time Password",
             text:`Your OTP is ${otp}. It will be expired in 10 minutes.`

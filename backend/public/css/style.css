@@ -3,6 +3,41 @@
     margin:0px;
     box-sizing: border-box;
 }
+body{
+    background-image: url('./background_image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#left{
+    display:flex;
+    flex-direction: column;
+    position: relative;
+    background-image: url(./me.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode:overlay
+}
+#para{
+    position:absolute;
+    bottom: 10px;
+    right:10px;
+    color: aliceblue;
+}
+#para a{
+    text-decoration: none;
+    color: aliceblue;
+}
+#label{
+    height:50px;
+    width:300px;
+    background-color: white;
+    font-size: 35px;
+    margin:30px;
+    margin-left: 0px;
+    text-align: center;
+    align-content: center;
+    box-shadow: 10px 10px 10px grey;
+}
 
 #box{/* For create account html page */
     height:600px;
@@ -73,7 +108,11 @@ input,select{
     height:30px;
     outline: none;
     border:none;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid black;
+    background: transparent;
+}
+input::placeholder{
+    color:black;
 }
 input:focus{
     background-color:rgb(239, 239, 239);

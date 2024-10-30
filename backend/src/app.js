@@ -1,6 +1,7 @@
+require('dotenv').config();
 const express=require('express');
 const app=express();
-const port=3000;
+const port=process.env.PORT || 3000;
 const path=require("path");
 
 // connecting all the files and folders to app.js
@@ -63,7 +64,12 @@ app.post("/varifyOtp",async (req,res)=>{
 app.post('/signUp',async (req,res)=>{
     const mongo=require("./database/userSchema");
     if(matched==true){
-        await mongo.insertMany([req.body]);
+        try{
+            if(!mongo.findOne({email:req.body.email})){
+            await mongo.insertMany([req.body]);
+        }}catch{
+            res.send({success:false,msg:'Already have an account'});
+        }
         matched=false;
         res.sendFile(path.join(__dirname+"../../public/html/home.html"));
         res.send({success:true,account:'created'});
@@ -91,12 +97,16 @@ app.post('/logIn',(req,res)=>{
 app.post('/forgotPassword',async (req,res)=>{
     const mongo=require("./database/userSchema");
     if(matched==true){
-        await mongo.updateOne({email:req.body.email},{$set:{
-            otp:req.body.otp,
-            time:req.body.time,
-            password:req.body.password,
-            confirmPassword:req.body.confirmPassword
-        }});
+        try{
+            await mongo.updateOne({email:req.body.email},{$set:{
+                otp:req.body.otp,
+                time:req.body.time,
+                password:req.body.password,
+                confirmPassword:req.body.confirmPassword
+            }});
+        }catch{
+            res.send({success:false,msg:'Invalid OTP'});
+        }
         matched=false;
         res.sendFile(path.join(__dirname+"../../public/html/index.html"));
         res.send({success:true,msg:'Password Updated'});

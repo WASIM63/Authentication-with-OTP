@@ -99,6 +99,9 @@ async function submit(){
             body:JSON.stringify(data)
         });
         let result=await response.json();
+        if(!result.success){
+            alert('Already have an account');
+        }
     }
 };
 
