@@ -9,6 +9,7 @@ app.use(express.static(path.join(__dirname,"../public")));
 app.use(express.static(path.join(__dirname,"./databases")));
 app.use(express.static(path.join(__dirname,"./jsFiles")));
 app.use(express.static(path.join(__dirname,"./scriptFiles")));
+app.use(express.static(path.join(__dirname,'../../ClientSide')));
 
 // cptcha
 const captchaApi=require("./jsFiles/captchaGenarator");
@@ -27,7 +28,7 @@ app.get("/forgotPassword",(req,res)=>{
     res.sendFile(path.join(__dirname+"../../public/html/forgotPassword.html"));
 })
 app.get("/home",(req,res)=>{
-    res.sendFile(path.join(__dirname+"../../public/html/home.html"));
+    res.sendFile(path.join(__dirname+"../../../ClientSide/amazon.html"));
 })
 app.get('/captcha', (req, res) =>{
     res.send(captchaApi.captcha(req,res));
@@ -71,7 +72,7 @@ app.post('/signUp',async (req,res)=>{
             res.send({success:false,msg:'Already have an account'});
         }
         matched=false;
-        res.sendFile(path.join(__dirname+"../../public/html/home.html"));
+        res.sendFile(path.join(__dirname+"../../public/html/index.html"));
         res.send({success:true,account:'created'});
     }
     else{
@@ -89,7 +90,7 @@ app.post('/verify-captcha', express.json(), (req,res) =>{
 app.post('/logIn',(req,res)=>{
     const login=require("./jsFiles/login");
     login(req,res).then(result=>{
-        if(result.success && captchaValidation) res.sendFile(path.join(__dirname+"../../public/html/home.html"));
+        if(result.success && captchaValidation) res.sendFile(path.join(__dirname,"../../ClientSide/amazon.html"));
         else res.send({result,captchaValidation});
     })
 });
