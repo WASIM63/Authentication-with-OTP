@@ -101,6 +101,9 @@ async function submit(){
         let result=await response.json();
         if(!result.success){
             alert('Already have an account');
+        }else{
+            alert('Account has been created. Go and LogIN.');
+            location.reload();
         }
     }
 };

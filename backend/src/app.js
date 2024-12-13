@@ -38,6 +38,7 @@ app.get('/captcha', (req, res) =>{
 let serverOtp=0;
 app.post("/email",async (req,res)=>{
     const sendMail=require("./jsFiles/mailSender");
+    console.log(sendMail);
     await sendMail(req.body.email).then(data=>{
         serverOtp=data;
         res.send({success:true});
@@ -66,9 +67,13 @@ app.post('/signUp',async (req,res)=>{
     const mongo=require("./database/userSchema");
     if(matched==true){
         try{
-            if(!mongo.findOne({email:req.body.email})){
-            await mongo.insertMany([req.body]);
-        }}catch{
+            let user=await mongo.findOne({email:req.body.email});
+            if(!user){
+                await mongo.insertMany([req.body]);
+            }else{
+                res.send({success:false,msg:'Already have an account'});
+            }
+        }catch{
             res.send({success:false,msg:'Already have an account'});
         }
         matched=false;
