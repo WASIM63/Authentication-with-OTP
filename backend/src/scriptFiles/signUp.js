@@ -102,7 +102,11 @@ async function submit(){
         if(!result.success){
             alert('Already have an account');
         }else{
+<<<<<<< HEAD
             alert('Acoount has been created, go and Log IN.');
+=======
+            alert('Account has been created. Go and LogIN.');
+>>>>>>> fd8d04cbb05705da2fe265c0fd6c0f2f9254b262
             location.reload();
         }
     }
