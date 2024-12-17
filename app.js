@@ -35,12 +35,7 @@ app.get('/captcha', (req, res) =>{
 
 let serverOtp=0;
 app.post("/email",async (req,res)=>{
-<<<<<<< HEAD:app.js
     const sendMail=require("./backend/src/jsFiles/mailSender");
-=======
-    const sendMail=require("./jsFiles/mailSender");
-    console.log(sendMail);
->>>>>>> fd8d04cbb05705da2fe265c0fd6c0f2f9254b262:backend/src/app.js
     await sendMail(req.body.email).then(data=>{
         console.log(data);
         serverOtp=data;
@@ -70,7 +65,6 @@ app.post('/signUp',async (req,res)=>{
     const users=require("./backend/src/database/userSchema");
     if(matched==true){
         try{
-<<<<<<< HEAD:app.js
             let user=await users.findOne({email:req.body.email});
             if(!user){
                 await users.insertMany([req.body]);
@@ -78,15 +72,6 @@ app.post('/signUp',async (req,res)=>{
                 res.send({success:false,msg:'Already have an account'});
             }
         }catch(err){
-=======
-            let user=await mongo.findOne({email:req.body.email});
-            if(!user){
-                await mongo.insertMany([req.body]);
-            }else{
-                res.send({success:false,msg:'Already have an account'});
-            }
-        }catch{
->>>>>>> fd8d04cbb05705da2fe265c0fd6c0f2f9254b262:backend/src/app.js
             res.send({success:false,msg:'Already have an account'});
         }
         matched=false;
