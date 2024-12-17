@@ -5,30 +5,28 @@ const port=process.env.PORT || 3000;
 const path=require("path");
 
 // connecting all the files and folders to app.js
-app.use(express.static(path.join(__dirname,"../public")));
-app.use(express.static(path.join(__dirname,"./databases")));
-app.use(express.static(path.join(__dirname,"./jsFiles")));
-app.use(express.static(path.join(__dirname,"./scriptFiles")));
-app.use(express.static(path.join(__dirname,'../../ClientSide')));
+app.use(express.static(path.join(__dirname,"./backend")));
+// app.use(express.static(path.join(__dirname,"./databases")));
+// app.use(express.static(path.join(__dirname,"./jsFiles")));
+// app.use(express.static(path.join(__dirname,"./scriptFiles")));
+app.use(express.static(path.join(__dirname,'./ClientSide')));
+// console.log(path.join(__dirname,'./ClientSide'));
 
 // cptcha
-const captchaApi=require("./jsFiles/captchaGenarator");
+const captchaApi=require("./backend/src/jsFiles/captchaGenarator");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
 app.get("/",(req,res)=>{
-    res.sendFile(path.join(__dirname+"../../public/html/index.html"));
+    res.sendFile(path.join(__dirname+"/backend/public/html/index.html"));
 })
 app.get("/signUp",(req,res)=>{
-    res.sendFile(path.join(__dirname+"../../public/html/signUp.html"));
+    res.sendFile(path.join(__dirname+"/backend/public/html/signUp.html"));
 })
 app.get("/forgotPassword",(req,res)=>{
-    res.sendFile(path.join(__dirname+"../../public/html/forgotPassword.html"));
-})
-app.get("/home",(req,res)=>{
-    res.sendFile(path.join(__dirname+"../../../ClientSide/amazon.html"));
+    res.sendFile(path.join(__dirname+"/backend/public/html/forgotPassword.html"));
 })
 app.get('/captcha', (req, res) =>{
     res.send(captchaApi.captcha(req,res));
@@ -37,7 +35,7 @@ app.get('/captcha', (req, res) =>{
 
 let serverOtp=0;
 app.post("/email",async (req,res)=>{
-    const sendMail=require("./jsFiles/mailSender");
+    const sendMail=require("./backend/src/jsFiles/mailSender");
     await sendMail(req.body.email).then(data=>{
         console.log(data);
         serverOtp=data;
@@ -64,7 +62,7 @@ app.post("/varifyOtp",async (req,res)=>{
     }
 });
 app.post('/signUp',async (req,res)=>{
-    const users=require("./database/userSchema");
+    const users=require("./backend/src/database/userSchema");
     if(matched==true){
         try{
             let user=await users.findOne({email:req.body.email});
@@ -78,7 +76,7 @@ app.post('/signUp',async (req,res)=>{
         }
         matched=false;
         res.send({success:true,account:'created'});
-        res.sendFile(path.join(__dirname+"../../public/html/index.html"));
+        res.sendFile(path.join(__dirname+"/backend/public/html/index.html"));
     }
     else{
         res.send({success:false,account:'None'});
@@ -93,15 +91,15 @@ app.post('/verify-captcha', express.json(), (req,res) =>{
 });
 
 app.post('/logIn',(req,res)=>{
-    const login=require("./jsFiles/login");
+    const login=require("./backend/src/jsFiles/login");
     login(req,res).then(result=>{
-        if(result.success && captchaValidation) res.sendFile(path.join(__dirname,"../../ClientSide/amazon.html"));
+        if(result.success && captchaValidation) res.sendFile(path.join(__dirname,"/ClientSide/amazon.html"));
         else res.send({result,captchaValidation});
     })
 });
 
 app.post('/forgotPassword',async (req,res)=>{
-    const mongo=require("./database/userSchema");
+    const mongo=require("./backend/src/database/userSchema");
     if(matched==true){
         try{
             await mongo.updateOne({email:req.body.email},{$set:{
@@ -114,7 +112,7 @@ app.post('/forgotPassword',async (req,res)=>{
             res.send({success:false,msg:'Invalid OTP'});
         }
         matched=false;
-        res.sendFile(path.join(__dirname+"../../public/html/index.html"));
+        res.sendFile(path.join(__dirname+"/backend/public/html/index.html"));
         res.send({success:true,msg:'Password Updated'});
     }
     else{
@@ -123,10 +121,10 @@ app.post('/forgotPassword',async (req,res)=>{
 })
 
 app.post('/findUser',async (req,res)=>{
-    const mongo=require("./database/userSchema");
+    const mongo=require("./backend/src/database/userSchema");
     const user=await mongo.findOne({email:req.body.email});
     if(user){
-        const sendMail=require("./jsFiles/mailSender");
+        const sendMail=require("./backend/src/jsFiles/mailSender");
         serverOtp=await sendMail(req.body.email);
         setTimeout(()=>{
             serverOtp=null;
